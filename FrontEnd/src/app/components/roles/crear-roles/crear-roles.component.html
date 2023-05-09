@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2>Crear rol</h2>
+        <div class="col-md-10 espacio">
+            <span class="textoLabel">Rol:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <input type="text" [(ngModel)]="rolNuevo" class="inputBasico">
+        </div>
+        <div class="col-md-2 espacio">
+            <span class=""></span>
+            <button mat-raised-button color="primary" class="full-width" (click)="CrearRol()" [disabled]="cargando" >Crear Rol</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h2>Editar Roles</h2>
+            <mat-paginator [pageSizeOptions]="[5,10,25]"> </mat-paginator>
+            <table mat-table [dataSource]="DataSourceRoles" class="full-width">
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell  *matHeaderCellDef> Nombre Rol </th>
+                    <td mat-cell *matCellDef="let element" > {{element.nombre}} </td>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let element" > {{element.estado}} </td>
+                </ng-container>
+                <ng-container matColumnDef="accion">
+                    <th mat-header-cell *matHeaderCellDef> Accion </th>
+                    <td mat-cell *matCellDef="let element" > <button (click)="desactivarRol(element)" mat-raised-button color="warn">Desactivar</button> </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnasTablaRoles"></tr>
+                <tr mat-row *matRowDef="let rows; columns: columnasTablaRoles"></tr>
+            </table>
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,162 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Agendar Cita">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-2 espacio">
+                    <span>Sucursal:</span>
+                    
+                </div>
+                <div class="col-md-10 espacio">
+                    <select class="inputBasico" [(ngModel)]="idSucursal" (ngModelChange)="cargarClinicas()" name="" id="">
+                        <option value="-">
+                            Seleccione
+                        </option>
+        
+                        <option *ngFor="let mostOpcion of dataSucursal" value="{{mostOpcion.idSucursal}}">{{mostOpcion.nombre}}</option>
+        
+                    </select>
+                    
+                </div>
+                <div class="col-md-2 espacio">
+                    <span>Clinica:</span>
+                    
+                </div>
+                <div class="col-md-10 espacio">
+                    <select class="inputBasico" [(ngModel)]="idClinica"  name="" id="">
+                        <option value="-">
+                            Seleccione
+                        </option>
+        
+                        <option *ngFor="let clini of dataClinicas" value="{{clini.idClinica}}">{{clini.nombre}}</option>
+        
+                    </select>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="paciente">Nombre del paciente:</label>
+                    <input type="text" class="inputBasico" [(ngModel)]="nombrePacientes">
+                </div>
+                
+                <div class="col-md-2 espacio">
+                    <button mat-raised-button color="primary" (click)="buscarNombrePaciente()" class="full-width">Buscar paciente</button>
+                </div>
+    
+                <div class="col-12 espacio" >
+                    <mat-paginator [pageSizeOptions]="[5,10,20]"></mat-paginator>
+                    <table class="full-width" mat-table [dataSource]="dataSourcePacientes">
+    
+                        <ng-container matColumnDef="nombre">    
+                            <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                            <td mat-cell *matCellDef="let element">{{element.paciente.nombres}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="apellido">    
+                            <th mat-header-cell *matHeaderCellDef>Apellido:</th>
+                            <td mat-cell *matCellDef="let element">{{element.paciente.apellidos}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="accion">    
+                            <th mat-header-cell *matHeaderCellDef>accion</th>
+                            <td mat-cell *matCellDef="let element"><button mat-raised-button color="primary" (click)="seleccionarPaciente(element)" class="full-width">Seleccionar</button></td>
+                        </ng-container>
+    
+                        <tr mat-header-row *matHeaderRowDef="columnasTablaPacientes"></tr>
+                        <tr mat-row *matRowDef="let rows; columns: columnasTablaPacientes"></tr>
+    
+                    </table>
+                </div>
+            </div>
+            <div class="row" *ngIf="paciente != null">
+                <h2>Paciente seleccionado</h2>
+                <h3>Nombres: {{paciente.nombres}}</h3>
+                <h4>Apellidos: {{paciente.apellidos}}</h4>
+
+                <div class="col-md-2">
+                    Fecha Hora cita:
+                </div>
+                <div class="col-md-10">
+                    <input type="datetime-local" [(ngModel)]="fechaCita" class="inputBasico">
+                </div>
+                <div class="col-12 espacio">
+                    <button mat-raised-button color="primary" class="full-width" (click)="AgendarCita()"> Agendar Cita </button>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Proximas Citas">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="paciente">Nombre del paciente:</label>
+                    <input type="text" class="inputBasico" [(ngModel)]="nombrePacientes1">
+                </div>
+                
+                <div class="col-md-2 espacio">
+                    <button mat-raised-button color="primary" (click)="buscarNombrePaciente1()" class="full-width">Buscar paciente</button>
+                </div>
+    
+                <div class="col-12 espacio" >
+                    <mat-paginator [pageSizeOptions]="[5,10,20]" #paginatorLegal="matPaginator"></mat-paginator>
+                    <table class="full-width" mat-table [dataSource]="dataSourcePacientes1">
+    
+                        <ng-container matColumnDef="nombre">    
+                            <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                            <td mat-cell *matCellDef="let element">{{element.paciente.nombres}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="apellido">    
+                            <th mat-header-cell *matHeaderCellDef>Apellido:</th>
+                            <td mat-cell *matCellDef="let element">{{element.paciente.apellidos}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="accion">    
+                            <th mat-header-cell *matHeaderCellDef>accion</th>
+                            <td mat-cell *matCellDef="let element"><button mat-raised-button color="primary" (click)="seleccionarPaciente1(element)" class="full-width">Seleccionar</button></td>
+                        </ng-container>
+    
+                        <tr mat-header-row *matHeaderRowDef="columnasTablaPacientes1"></tr>
+                        <tr mat-row *matRowDef="let rows; columns: columnasTablaPacientes1"></tr>
+    
+                    </table>
+                </div>
+            </div>
+            <div class="row" *ngIf="paciente1!= null">
+                <h2>Paciente seleccionado</h2>
+                <h3>Nombres: {{paciente1.nombres}}</h3>
+                <h4>Apellidos: {{paciente1.apellidos}}</h4>
+                <div class="col-12" *ngIf="dataPacientes1.length >0">
+                    <mat-paginator [pageSizeOptions]="[5,10,20]" #paginarotCitas="matPaginator"></mat-paginator>
+                    <table class="full-width" mat-table [dataSource]="dataSourceCitasEncontradas">
+    
+                        <ng-container matColumnDef="Fecha">    
+                            <th mat-header-cell *matHeaderCellDef>Fecha Hora cita:</th>
+                            <td mat-cell *matCellDef="let element">{{element.fechaCita}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="Sucursal">    
+                            <th mat-header-cell *matHeaderCellDef>Sucursal:</th>
+                            <td mat-cell *matCellDef="let element">{{element.idClinicaNavigation.idSucursalNavigation.nombre}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Clinica">    
+                            <th mat-header-cell *matHeaderCellDef>Clinica:</th>
+                            <td mat-cell *matCellDef="let element">{{element.idClinicaNavigation.nombre}}</td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="accion">    
+                            <th mat-header-cell *matHeaderCellDef>Accion</th>
+                            <td mat-cell *matCellDef="let element"><button mat-raised-button color="primary" (click)="Selecionarcita(element)" class="full-width">Seleccionar</button></td>
+                        </ng-container>
+    
+                        <tr mat-header-row *matHeaderRowDef="columnasCitas"></tr>
+                        <tr mat-row *matRowDef="let rows; columns: columnasCitas"></tr>
+    
+                    </table>
+                </div>
+            </div>
+        </div>   
+    </mat-tab>
+  </mat-tab-group>

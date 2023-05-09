@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <h1>DashBoard Camas</h1>
+    <div class="row">
+        <div class="col-md-2 espacio" >
+            <span> Sucursal: </span>
+        </div>
+        <div class="col-md-10 espacio">
+            <select Name="idsucursal" class="inputBasico" [(ngModel)]="IdSucursal" (ngModelChange)="CambioSucursal()" id="idsucursal">
+                <option value="-">Seleccione</option>
+                <option *ngFor= "let sucur of dataSucursal" value="{{sucur.idSucursal}}">{{sucur.nombre}}</option> 
+            </select>
+        </div>
+        <div class="col-12" *ngIf="DataGeneral!= null ">
+            <h2>Habitaciones</h2>
+            <div class="row">
+                <div class="col-md-6 " style="margin-bottom: 8px;"  *ngFor="let habi of DataGeneral[0].Habitaciones">
+                    <div class="card">
+                        <div class="card-header"><span>Nombre: {{habi.Nombre}}</span> 
+                            <br>
+                            <span>Cantidad libres: {{cantidadCamasHabitacion(habi)}}</span>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row" >
+                                <div class="col-md-6" *ngFor="let cama of habi.Camas">
+                                    <div class="card" [ngClass]="cama.AsignacionesCamas.length==0 ? 'fondoAzul' :'fondoRojo'" style="text-align: center; margin-bottom: 5px;">
+                                        <mat-icon style="font: size 1rem;">bed</mat-icon>
+                                        <br>
+                                        <span>Nombre:{{cama.Nombre}}</span>
+                                        <span *ngIf="cama.AsignacionesCamas.length==0">Cama Libre</span>
+                                        <span *ngIf="cama.AsignacionesCamas.length!=0">Cama ocupada</span>
+                                    </div>
+                                    
+                                </div>
+                                <div *ngIf="habi.Camas.length==0" ><h2>Habitacion sin camas</h2></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>  
+       
+    </div>
+</div>

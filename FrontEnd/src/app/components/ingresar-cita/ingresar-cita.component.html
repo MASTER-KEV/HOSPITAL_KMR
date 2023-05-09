@@ -1,0 +1,172 @@
+<div class="container-fluid">
+    <div class="row">
+        <h1>Cita de: {{CitaGeneral.idCasoNavigation.idPacienteNavigation.nombres}} {{CitaGeneral.idCasoNavigation.idPacienteNavigation.apellidos}}</h1>
+        <h1>Fecha y Hora: {{CitaGeneral.fechaCita}}</h1>
+        <div class="col-12">
+            <span>Observaciones:</span>
+            <textarea class="textAreaBasico" [(ngModel)]="Observaciones" rows="8"></textarea>
+            <span>{{Observaciones.length}}/500</span>
+        </div>
+        <div class="col-12">
+            <h2>Diagnosticos:</h2>
+            <div class="row">
+                <div class="col-md-10">
+                        <label for="diagnostico">Nombre del diagnostico:</label>
+                        <input type="text" class="inputBasico" [(ngModel)]="nombreDiagnosticos">
+                    </div>
+                    
+                    <div class="col-md-2 espacio">
+                        <button mat-raised-button color="primary" (click)="buscarDiagnostico()" class="full-width">Buscar diagnostico</button>
+                    </div>
+
+                    <div class="col-12" *ngIf="dataDiagnosticos.length >0">
+                        <mat-paginator [pageSizeOptions]="[5,10,20]" #paginatorbusquedaDiags="matPaginator"></mat-paginator>
+                        <table class="full-width" mat-table [dataSource]="dataSourceDiagnostico">
+
+                            <ng-container matColumnDef="nombre">    
+                                <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                                <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="accion" style="width: 200px;">    
+                                <th mat-header-cell *matHeaderCellDef   style="width: 200px;">accion</th>
+                                <td mat-cell *matCellDef="let element"  style="width: 200px;"><button mat-raised-button color="primary" (click)="seleccionarDiagnostico(element)" class=" ">Seleccionar diagnostico</button></td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="columnasTablaDiagnosticos"></tr>
+                            <tr mat-row *matRowDef="let rows; columns: columnasTablaDiagnosticos"></tr>
+                       </table>
+                    </div>
+
+
+                    <div class="col-12" *ngIf="dataDiagnosticos1.length >0">
+                        <h2>Diagnosticos seleccionados</h2>
+                        <mat-paginator [pageSizeOptions]="[5,10,20]" #paginatorbusquedaDiags="matPaginator"></mat-paginator>
+                        <table class="full-width" mat-table [dataSource]="dataSourceDiagnostico1">
+
+                            <ng-container matColumnDef="nombre">    
+                                <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                                <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="accion"  style="width: 200px;">    
+                                <th mat-header-cell *matHeaderCellDef  style="width: 200px;">accion</th>
+                                <td mat-cell *matCellDef="let element"  style="width: 200px;"><button mat-raised-button color="warn" (click)="eliminardiag(element)" class="">Eliminar diagnostico</button></td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="columnasTablaDiagnosticos1"></tr>
+                            <tr mat-row *matRowDef="let rows; columns: columnasTablaDiagnosticos1"></tr>
+                       </table>
+                    </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <h2>Examenes:</h2>
+            <div class="row">
+            <div class="col-md-10">
+                <label for="diagnostico">Nombre del Examen:</label>
+                <input type="text" class="inputBasico" [(ngModel)]="nombreExamen">
+            </div>
+            
+            <div class="col-md-2 espacio">
+                <button mat-raised-button color="primary" (click)="buscarExamen()" class="full-width">Buscar Examen</button>
+            </div>
+
+            <div class="col-12" *ngIf="dataExamenes.length >0">
+                <mat-paginator [pageSizeOptions]="[5,10,20]" #paginatorbusquedaex="matPaginator"></mat-paginator>
+                <table class="full-width" mat-table [dataSource]="dataSourceExamenes">
+
+                    <ng-container matColumnDef="nombre">    
+                        <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                        <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="accion"  style="width: 200px;">    
+                        <th mat-header-cell *matHeaderCellDef  style="width: 200px;">accion</th>
+                        <td mat-cell *matCellDef="let element"  style="width: 200px;"><button mat-raised-button color="primary" (click)="seleccionarExamen(element)" class=" ">Seleccionar Examen</button></td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="columnasTablaExamenes"></tr>
+                    <tr mat-row *matRowDef="let rows; columns: columnasTablaExamenes"></tr>
+               </table>
+            </div>
+
+            <div class="col-12" *ngIf="dataExamenes1.length >0">
+                <h2>Examenes Seleccionados</h2>
+                <mat-paginator [pageSizeOptions]="[5,10,20]" #paginatorbusquedaex1="matPaginator"></mat-paginator>
+                <table class="full-width" mat-table [dataSource]="dataSourceExamenes1">
+
+                    <ng-container matColumnDef="nombre">    
+                        <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                        <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="accion"  style="width: 200px;">    
+                        <th mat-header-cell *matHeaderCellDef  style="width: 200px;"> accion</th>
+                        <td mat-cell *matCellDef="let element"  style="width: 200px;"><button mat-raised-button color="warn" (click)="eliminarExamen(element)" class=" ">Eliminar Examen</button></td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="columnasTablaExamenes1"></tr>
+                    <tr mat-row *matRowDef="let rows; columns: columnasTablaExamenes1"></tr>
+               </table>
+            </div>
+        </div>
+        </div>
+        <div class="col-12">
+            <h2>Medicamentos</h2>
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="diagnostico">Nombre del medicamento:</label>
+                    <input type="text" class="inputBasico" [(ngModel)]="nombreProducto">
+                </div>
+                
+                <div class="col-md-2 espacio">
+                    <button mat-raised-button color="primary" (click)="buscarProducto()" class="full-width">Buscar Medicamento</button>
+                </div>
+
+                <div class="col-12" *ngIf="dataProductos.length >0">
+                    <h2>Medicamentos Seleccionados</h2>
+                    <mat-paginator [pageSizeOptions]="[5,10,20]" #paginatorprods="matPaginator"></mat-paginator>
+                    <table class="full-width" mat-table [dataSource]="dataSourceProductos">
+
+                        <ng-container matColumnDef="nombre">    
+                            <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                            <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="accion"  style="width: 200px;">    
+                            <th mat-header-cell *matHeaderCellDef  style="width: 200px;">accion</th>
+                            <td mat-cell *matCellDef="let element"  style="width: 200px;"><button mat-raised-button color="primary" (click)="SeleccionarProducto(element)" class="">Seleccionar Medicamento</button></td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="columnaProductos"></tr>
+                        <tr mat-row *matRowDef="let rows; columns: columnaProductos"></tr>
+                   </table>
+                </div>
+
+                <div class="col-12" *ngIf="dataProductos1.length >0">
+                    <mat-paginator [pageSizeOptions]="[5,10,20]" #paginatorprods="matPaginator"></mat-paginator>
+                    <table class="full-width" mat-table [dataSource]="dataSourceProductos1">
+
+                        <ng-container matColumnDef="nombre">    
+                            <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                            <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="accion"  style="width: 200px;">    
+                            <th mat-header-cell *matHeaderCellDef  style="width: 200px;">accion</th>
+                            <td mat-cell *matCellDef="let element"  style="width: 200px;"><button mat-raised-button color="warn" (click)="eliminarProducto(element)" class="">Eliminar Medicamento</button></td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="columnaProductos1"></tr>
+                        <tr mat-row *matRowDef="let rows; columns: columnaProductos"></tr>
+                   </table>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-12 espacio">
+              <button mat-raised-button color="primary" class="full-width" (click)="GuardarCita()">Guardar Cita</button>  
+        </div>
+    </div>
+</div>

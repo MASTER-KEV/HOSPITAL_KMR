@@ -1,0 +1,122 @@
+<mat-toolbar>
+    <div class="toolbar-container">
+
+        <button mat-icon-button (click)="toggleNav()">
+            <mat-icon class="SoloBlanco" *ngIf="!smallView && !isExpanded">menu</mat-icon>
+            <mat-icon class="SoloBlanco" *ngIf="!smallView && isExpanded">menu_open</mat-icon>
+
+            <mat-icon class="SoloBlanco" *ngIf="smallView && !sidenav.opened">menu</mat-icon>
+            <mat-icon class="SoloBlanco" *ngIf="smallView && sidenav.opened">menu_open</mat-icon>
+        </button>
+
+
+        <span class="SoloBlanco">HOSPITAL KMR</span>
+        <span *ngIf="!smallView" class="SoloBlanco">Usuario: {{user.username}}</span>
+        <!-- <span></span> -->
+        <!-- <span *ngIf="!smallView">Usuario: {{user.username}}</span>
+        <span *ngIf="smallView"></span> -->
+
+    </div>
+</mat-toolbar>
+<mat-sidenav-container autosize class="sidenav-container">
+
+    <mat-sidenav #sidenav mode="side" opened="true">
+        <div class="nav-container" style="width: 100%; display: flex; ">
+            
+
+            <mat-nav-list style="flex-grow: 1;">
+                
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('Usuarios')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>man</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">Usuarios</span>
+                </mat-list-item>
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('Sucursales')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>apartment</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">Sucursales</span>
+                </mat-list-item>
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('productos')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>category</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">Productos</span>
+                </mat-list-item>
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('Roles')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>tune</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">Roles</span>
+                </mat-list-item>
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('Bodegas')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>home_work</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">Bodegas</span>
+                </mat-list-item>
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('Lotesitos')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>inventory_2</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">Lote</span>
+                </mat-list-item>
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('Pacientes')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>person</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">Pacientes</span>
+                </mat-list-item>
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('AsignacionCama')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>person_add</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">AsignacionCama</span>
+                </mat-list-item>
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('Camas')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>bed</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">Camas</span>
+                </mat-list-item>
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('DashBoardCamas')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>dashboard</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">DashBoard Camas</span>
+                </mat-list-item>
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('Habitaciones')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>bedroom_parent</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">Habitaciones</span>
+                </mat-list-item>
+
+                <mat-list-item style="height: 45px;"
+                    (click)="GoTo('CitasOfline')" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>wifi_off</mat-icon>
+                    <span *ngIf="isExpanded" class="span-link">Citas Sin conexion</span>
+                </mat-list-item>
+                
+            </mat-nav-list>
+            
+            <mat-nav-list>
+                <mat-list-item *ngIf="!isDarkMode" (click)="darkTheme()" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>dark_mode</mat-icon>
+                    <span *ngIf="isExpanded">Tema</span>
+                </mat-list-item>
+
+                <mat-list-item *ngIf="isDarkMode" (click)="darkTheme()" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>light_mode</mat-icon>
+                    <span *ngIf="isExpanded">Tema</span>
+                </mat-list-item>
+
+                <mat-list-item (click)="logout()" style="color: var(--primary-text-color);">
+                    <mat-icon mat-list-icon>logout</mat-icon>
+                    <span *ngIf="isExpanded">Salir</span>
+                </mat-list-item>
+            </mat-nav-list>
+
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content style="margin: 0;" ID="contenedor">
+        <div class="content" *ngIf="ruta()">
+            <img src="../../../assets/svgs/Home.svg">
+            <h3>Bienvenido {{user.username}}.</h3>
+        </div>
+        <div style="margin-top:70px">
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+            
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

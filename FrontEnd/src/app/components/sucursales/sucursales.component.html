@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <div class="row">
+        <h1>Sucursales</h1>
+        <div class="col-12 espacio" >
+            <span> Nombre Sucursal: </span>
+            <input type="text" [(ngModel)]="nombreSucursal" class="inputBasico">
+        </div>
+        <div class="col-12 espacio">
+            <span> Departamento: </span>
+            <select name="departamento" class="inputBasico" [(ngModel)]="departamento" (ngModelChange)="cambioDepartamento()" id="departamento">
+                <option value="-">Seleccione</option>
+                <option *ngFor="let dep of dataDepartamentos" value="{{dep.idDepartamento}}">{{dep.nombre}}</option>
+            </select>
+        </div>
+        <div class="col-12 espacio" >
+            <span> Municipio: </span>
+            <select name="municipio" class="inputBasico"  [(ngModel)]="municipio" id="municipio">
+                <option value="-">Seleccione</option>
+                <option *ngFor="let mun of dataMunicipios" value="{{mun.idMunipio}}">{{mun.nombre}}</option>
+            </select>
+        </div>
+        <div class="col-12 espacio" >
+            <span> Telefono: </span>
+            <input type="number" [(ngModel)]="telefono" class="inputBasico">
+        </div>
+        <div class="col-12 espacio" >
+            <span>Direccion: </span>
+            <input type="text" maxlength="99"  [(ngModel)]="direccionSucursal" class="inputBasico">
+        </div>
+        <div class="col-12 espacio" >
+            <span> Estado: </span>
+            <input readonly type="text" maxlength="1" [(ngModel)]="estado" class="inputBasico">
+        </div>
+        <div class="col-12 espacio">
+            <button mat-raised-button color="primary" (click)="crearSucursal()" class="full-width">Crear Sucursal</button>
+        </div>
+    </div>
+</div>

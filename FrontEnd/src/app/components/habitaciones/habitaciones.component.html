@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="row">
+            <h1>crear habitaciones</h1>
+        <div class="col-md-2 espacio">
+            <span>Sucursal:</span>
+            
+        </div>
+        <div class="col-md-10 espacio">
+            <select class="inputBasico" [(ngModel)]="idSucursal" name="" id="">
+                <option value="-">
+                    Seleccione
+                </option>
+
+                <option *ngFor="let mostOpcion of dataSucursal" value="{{mostOpcion.idSucursal}}">{{mostOpcion.nombre}}</option>
+
+            </select>
+            
+        </div>
+        <div class="col-md-2 espacio">
+            <span>Tipo de habitacion:</span>
+        </div>
+        <div class="col-md-10 espacio">
+            <select name="" id="" class="inputBasico" [(ngModel)]="idTipoDeHabitacion">
+                <option value="1">Simple</option>
+                <option value="2">Doble</option>
+                <option value="3">Multiple</option>
+            </select>
+        </div>
+        <div class="col-md-2 espacio">
+            <span>nombre:</span>
+        </div>
+        <div class="col-md-10 espacio">
+            <input type="text" [(ngModel)]="nombreHabitacion" class="inputBasico">
+        </div>
+        <div class="col-12 espacio">
+            <button mat-raised-button color="primary" (click)="crearHabitacion()" class="full-width">Crear Habitacion</button>
+        </div>
+    </div>
+    
+</div>
+

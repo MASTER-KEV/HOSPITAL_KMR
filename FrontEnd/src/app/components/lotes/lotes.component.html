@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <div class="row">
+        <h1>Lotes</h1>
+        <div class="col-12 espacio" >
+        </div>
+            <div class="col-12 espacio" >
+                <span> Producto: </span>
+                <select name="producto" class="inputBasico" [(ngModel)]="producto"   id="idproducto">
+                <option value="-">Seleccione</option>
+                <option *ngFor="let prod of dataProductos" value="{{prod.idProducto}}" >{{prod.nombre}}</option>
+                </select>
+            </div>
+            <div class="col-12 espacio" >
+                <span> Sucursal: </span>
+                <select name="sucursal" class="inputBasico" [(ngModel)]="sucursal" (ngModelChange)="cambioBodega()" id="idsucursal">
+                <option value="-">Seleccione</option>
+                <option *ngFor="let prod of dataSucursales" value="{{prod.idSucursal}}" >{{prod.nombre}}</option>
+            </select>
+            </div>
+            <div class="col-12 espacio" >
+                <span> Bodega: </span>
+                <select name="bodega" class="inputBasico" [(ngModel)]="bodega"  id="idbodega">
+                <option value="-">Seleccione</option>
+                <option *ngFor="let prod of dataBodegas" value="{{prod.idBodega}}" >{{prod.nombre}}</option>
+            </select>
+            </div>
+            <div class="col-12 espacio" >
+                <span> Existencia: </span>
+                <input type="text"  [(ngModel)]="existencia"class="inputBasico">
+            </div>
+            <div class="col-12 espacio" >
+                <span> Estado: </span>
+                <input type="text"  [(ngModel)]="estado" class="inputBasico">
+            </div>
+            <div class="col-12 espacio" >
+                <span> Precio Unitario: </span>
+                <input type="text"  [(ngModel)]="preciounitario" class="inputBasico">
+            </div>
+            <div class="col-12 espacio" >
+                <span> Marca: </span>
+                <input type="text" [(ngModel)]="marca" class="inputBasico">
+            </div>
+            <div class="col-12 espacio" >
+                <span> Fecha Ingreso: </span>
+                <input type="date" [(ngModel)]="fechaingreso" class="inputBasico">
+            </div>
+            <div class="col-12 espacio" >
+                <span> Fecha Caducidad: </span>
+                <input  type="date" [(ngModel)]="fechacaducidad" class="inputBasico">
+            </div>
+        </div>
+        <div class="col-12 espacio">
+            <button mat-raised-button color="primary" (click)="crearLote()" class="full-width">Crear Lote</button>
+        </div>
+    </div>

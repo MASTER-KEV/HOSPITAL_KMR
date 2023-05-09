@@ -1,0 +1,63 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Listar Roles Usuario">
+        <section class="container-fluid">
+            <div class="row">
+                <div class="col-md-10">
+                    <label for="usuario">Nombre de usuario</label>
+                    <input type="number" id="usuario" class="inputBasico" [(ngModel)]="idUsuario" placeholder="Username">
+                </div>
+                <div class="col-md-2"><button mat-raised-button  color = "primary" (click)="buscarRolesUsuario()">Buscar</button></div>
+                <div class="col-12">
+                    <mat-paginator [pageSizeOptions]="[5,10,25]"></mat-paginator>
+                    <table mat-table [dataSource]="DataSourseRolesUsuario" class="full-width">
+                        <ng-container matColumnDef="rol">
+                            <th mat-header-cell *matHeaderCellDef> Rol</th>
+                            <td mat-cell *matCellDef="let element">{{element.idRolNavigation.nombre}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="accion">
+                            <th mat-header-cell *matHeaderCellDef> accion</th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-raised-button (click)="eliminarRol(element)" color="warn">Eliminar</button>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="ColumnasTableRolesUsuario"></tr>
+                        <tr mat-row *matRowDef="let rows; columns: ColumnasTableRolesUsuario"></tr>
+                    </table>
+                </div>
+            </div>
+            </section>
+    </mat-tab>
+    <mat-tab label="Agregar Roles Usuario">
+            <section class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10"> 
+                        <input type="number" class="inputBasico" [(ngModel)]="idUsuarioAgregar">
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-12">
+                        <h2>Editar Roles</h2>
+                        <mat-paginator [pageSizeOptions]="[5,10,25]"> </mat-paginator>
+                        <table mat-table [dataSource]="DataSourceRoles" class="full-width">
+                            <ng-container matColumnDef="nombre">
+                                <th mat-header-cell  *matHeaderCellDef> Nombre Rol </th>
+                                <td mat-cell *matCellDef="let element" > {{element.nombre}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="estado">
+                                <th mat-header-cell *matHeaderCellDef> Estado </th>
+                                <td mat-cell *matCellDef="let element" > {{element.estado}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="accion">
+                                <th mat-header-cell *matHeaderCellDef> Accion </th>
+                                <td mat-cell *matCellDef="let element" > <button (click)="agregarRolUsuario(element)" mat-raised-button color="primary">Activar</button> </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="columnasTablaRoles"></tr>
+                            <tr mat-row *matRowDef="let rows; columns: columnasTablaRoles"></tr>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+    </mat-tab>
+</mat-tab-group>

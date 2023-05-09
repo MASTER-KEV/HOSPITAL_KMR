@@ -1,0 +1,85 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-10">
+            <label for="paciente">Nombre del paciente:</label>
+            <input type="text" class="inputBasico" [(ngModel)]="nombrePacientes">
+        </div>
+        
+        <div class="col-md-2 espacio">
+            <button mat-raised-button color="primary" (click)="buscarNombrePaciente()" class="full-width">Buscar paciente</button>
+        </div>
+
+        <div class="col-12">
+            <mat-paginator [pageSizeOptions]="[5,10,20]"></mat-paginator>
+            <table class="full-width" mat-table [dataSource]="dataSourcePacientes">
+
+                <ng-container matColumnDef="nombre">    
+                    <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                    <td mat-cell *matCellDef="let element">{{element.paciente.nombres}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="apellido">    
+                    <th mat-header-cell *matHeaderCellDef>Apellido:</th>
+                    <td mat-cell *matCellDef="let element">{{element.paciente.apellidos}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="accion">    
+                    <th mat-header-cell *matHeaderCellDef>accion</th>
+                    <td mat-cell *matCellDef="let element"><button mat-raised-button color="primary" (click)="seleccionarPaciente(element)" class="full-width">Seleccionar</button></td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnasTablaPacientes"></tr>
+                <tr mat-row *matRowDef="let rows; columns: columnasTablaPacientes"></tr>
+
+            </table>
+        </div>
+        
+    </div>
+    <div class="row" *ngIf="paciente != null">
+        <h2>Nombre paciente:{{paciente.nombres}}</h2>
+        <h2>Nombre paciente:{{paciente.apellidos}}</h2>
+        <div class="col-md-2 espacio">
+            <span>Sucursal</span>
+        </div>
+
+        <div class="col-md-10 espacio">
+            <select name="" id="" class="inputBasico" [(ngModel)]="idSucursal" (ngModelChange)="cargarHabitaciones()">
+                <option value="-">
+                    Seleccione
+                </option>
+                <option *ngFor="let mostOpcion of dataSucursal" value="{{mostOpcion.idSucursal}}">
+                    {{mostOpcion.nombre}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-2 espacio">
+            <span>Habitacion:</span>
+        </div>
+
+        <div class="col-md-10 espacio">
+            <select name="" id="" class="inputBasico" [(ngModel)]="idTipoDeHabitacion" (ngModelChange)="cargarCamas()">
+                <option value="-">
+                    Seleccione
+                </option>
+                <option *ngFor="let mostOpcion of dataHabitacion" value="{{mostOpcion.idHabitacion}}">{{mostOpcion.nombre}}</option>
+            </select>
+        </div>
+        <div class="col-md-2 espacio">
+            <span>Camas:</span>
+        </div>
+
+        <div class="col-md-10 espacio">
+            <select name="" id="" class="inputBasico" [(ngModel)]="idCama">
+                <option value="-">
+                    Seleccione
+                </option>
+                <option *ngFor="let mostOpcion of DataCamas" value="{{mostOpcion.idCama}}">{{mostOpcion.nombre}}</option>
+            </select>
+        </div>
+        <div class="col-12 espacio" >
+            <button mat-raised-button color="primary" [disabled]="idCama=='-'" (click)="asignar()" style="width: 100%;">Asignar cama</button>
+        </div>
+    </div>
+</div>

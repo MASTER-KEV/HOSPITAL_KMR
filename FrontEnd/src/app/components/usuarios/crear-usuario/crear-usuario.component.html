@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row">
+        <h1>Crear usuario</h1>
+        <div class="col-md-2 espacio">
+            <span>Nombres:</span>
+        </div>
+        <div class="col-md-10 espacio">
+            <input type="text" [(ngModel)]="nombres" class="inputBasico">
+        </div>
+
+        <div class="col-md-2 espacio">
+            <span>Apellidos:</span>
+        </div>
+        <div class="col-md-10 espacio">
+            <input type="text" [(ngModel)]="apellidos" class="inputBasico">
+        </div>
+        <div class="col-md-2 espacio">
+            <span>Username:</span>
+        </div>
+        <div class="col-md-10 espacio">
+            <input type="text" [(ngModel)]="username" class="inputBasico">
+        </div>
+        <div class="col-md-2 espacio">
+            <span>Contraseña:</span>
+        </div>
+        <div class="col-md-10 espacio">
+            <input type="password" [(ngModel)]="contras" class="inputBasico">
+        </div>
+
+        <div class="col-md-2 espacio">
+            <span>Confirmar contraseña:</span>
+        </div>
+        <div class="col-md-10 espacio">
+            <input type="password" [(ngModel)]="contra2" class="inputBasico">
+        </div>
+        <div class="col-md-2" *ngIf="contraIgual()" ></div>
+        <div class="col-md-10" style="color:red" *ngIf="contraIgual()" >Las contraseñias no son iguales</div>
+        <div class="col-md-2 espacio">
+            <span>Fecha Nacimiento:</span>
+        </div>
+        <div class="col-md-10 espacio">
+            <input type="date" [(ngModel)]="fechaNacimiento" class="inputBasico">
+        </div>
+
+        <div class="col-md-2 espacio">
+            <span>Tipo Usuario:</span>
+        </div>
+        <div class="col-md-10 espacio">
+            <select name="" class="inputBasico" [(ngModel)]="tipoUser" id="">
+                <option value="-">Seleccione</option>
+                <option value="1">Medico</option>
+                <option value="2">Enfermero</option>
+                <option value="3">Venta</option>
+                <option value="4">Administrador</option>
+            </select>
+        </div>
+        <div class="col-12 espacio">
+            <button mat-raised-button color="primary" class="full-width" (click)="CrearUsuario()">Crear Usuario</button>
+        </div>
+    </div>
+</div>

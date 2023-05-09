@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row">
+            <h1>crear cama</h1>
+
+        <div class="col-md-2 espacio">
+            <span>Sucursal</span>
+        </div>
+
+        <div class="col-md-10 espacio">
+            <select name="" id="" class="inputBasico" [(ngModel)]="idSucursal" (ngModelChange)="cargarHabitaciones()">
+                <option value="-">
+                    Seleccione
+                </option>
+                <option *ngFor="let mostOpcion of dataSucursal" value="{{mostOpcion.idSucursal}}">
+                    {{mostOpcion.nombre}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-2 espacio">
+            <span>Habitacion:</span>
+        </div>
+
+        <div class="col-md-10 espacio">
+            <select name="" id="" class="inputBasico" [(ngModel)]="idTipoDeHabitacion">
+                <option value="-">
+                    Seleccione
+                </option>
+                <option *ngFor="let mostOpcion of dataHabitacion" value="{{mostOpcion.idHabitacion}}">{{mostOpcion.nombre}}</option>
+            </select>
+        </div>
+
+        <div class="col-md-2 espacio">
+            <span>Nombre:</span>
+        </div>
+
+        <div class="col-md-10 espacio">
+            <input type="text" class="inputBasico" [(ngModel)]="nombreCama">
+        </div>
+
+        <div class="col-12 espacio">
+            <button mat-raised-button color="primary" (click)="crearCamas()" class="full-width">Crear cama</button>
+        </div>
+</div>
+</div>

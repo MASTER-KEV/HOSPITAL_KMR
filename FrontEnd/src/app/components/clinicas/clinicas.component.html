@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 espacio">
+      <span>Sucursal: </span>
+    </div>
+    <div class="col-md-10 espacio">
+      <select name="" id="" class="inputBasico" [(ngModel)]="IdSucursal">
+        <option value="-">Seleccione</option>
+        <option *ngFor="let sucursal of datasucursal" value="{{sucursal.idSucursal}}">{{sucursal.nombre}}</option>
+      </select>
+    </div>
+    <div class="col-md-2 espacio">
+      <span>Nombre: </span>
+    </div>
+    <div class="col-md-10 espacio">
+      <input type="text" class="inputBasico" [(ngModel)]="nomclinica">
+    </div>
+    <div class="col-12 espacio">
+      <button mat-raised-button color="primary" (click)="crearclinica()" class="full-width">Crear Clinica</button>
+    </div>
+  </div>
+</div>

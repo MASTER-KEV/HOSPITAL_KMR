@@ -1,0 +1,83 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Agregar diagnostico"> 
+        <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-10">
+                        <label for="paciente">Nombre del paciente:</label>
+                        <input type="text" class="inputBasico" [(ngModel)]="nombrePacientes">
+                    </div>
+                    
+                    <div class="col-md-2 espacio">
+                        <button mat-raised-button color="primary" (click)="buscarNombrePaciente()" class="full-width">Buscar paciente</button>
+                    </div>
+
+                    <div class="col-12">
+                        <mat-paginator [pageSizeOptions]="[5,10,20]"></mat-paginator>
+                        <table class="full-width" mat-table [dataSource]="dataSourcePacientes">
+
+                            <ng-container matColumnDef="nombre">    
+                                <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                                <td mat-cell *matCellDef="let element">{{element.paciente.nombres}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="apellido">    
+                                <th mat-header-cell *matHeaderCellDef>Apellido:</th>
+                                <td mat-cell *matCellDef="let element">{{element.paciente.apellidos}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="accion">    
+                                <th mat-header-cell *matHeaderCellDef>accion</th>
+                                <td mat-cell *matCellDef="let element"><button mat-raised-button color="primary" (click)="seleccionarPaciente(element)" class="full-width">Seleccionar</button></td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="columnasTablaPacientes"></tr>
+                            <tr mat-row *matRowDef="let rows; columns: columnasTablaPacientes"></tr>
+
+                        </table>
+                    </div>
+                </div>
+            
+                <div class="row" *ngIf="paciente != null">
+                    <h2>Nombre paciente:{{paciente.nombres}}</h2>
+                    <h2>Nombre paciente:{{paciente.apellidos}}</h2>
+
+                    <div class="col-md-10">
+                        <label for="diagnostico">Nombre del diagnostico:</label>
+                        <input type="text" class="inputBasico" [(ngModel)]="nombreDiagnosticos">
+                    </div>
+                    
+                    <div class="col-md-2 espacio">
+                        <button mat-raised-button color="primary" (click)="buscarDiagnostico()" class="full-width">Buscar diagnostico</button>
+                    </div>
+
+                    <div class="col-12">
+                        <mat-paginator [pageSizeOptions]="[5,10,20]"></mat-paginator>
+                        <table class="full-width" mat-table [dataSource]="dataSourceDiagnostico">
+
+                            <ng-container matColumnDef="nombre">    
+                                <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+                                <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="accion">    
+                                <th mat-header-cell *matHeaderCellDef>accion</th>
+                                <td mat-cell *matCellDef="let element"><button mat-raised-button color="primary" (click)="seleccionarDiagnostico(element)" class="full-width">Seleccionar diagnostico</button></td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="columnasTablaDiagnosticos"></tr>
+                            <tr mat-row *matRowDef="let rows; columns: columnasTablaDiagnosticos"></tr>
+                       </table>
+                    </div>
+                    <div class="col-12" *ngIf="Diagnostico != null">
+                        <h2>Diagnosnico seleccionado:{{Diagnostico.nombre}}</h2>
+                        <button mat-raised-button color="primary" (click)="cargarDiagnosticoCasos()" class="full-width">Cargar diagnostico</button>
+                    </div>
+                </div>
+            </div>    
+        </mat-tab>
+    <mat-tab label="Listar diagnostico">   
+    </mat-tab>
+</mat-tab-group>
+
+

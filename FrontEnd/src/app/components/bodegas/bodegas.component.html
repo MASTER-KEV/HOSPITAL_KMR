@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row">
+        <h1>Crear Bodegas</h1>
+        <div class="col-12 espacio" >
+        </div>
+            <div class="col-12 espacio" >
+                <span> Sucursal: </span>
+                <select Name="idsucursal" class="inputBasico" [(ngModel)]="IdSucursal"  id="idsucursal">
+                <option value="-">Seleccione</option>
+                <option *ngFor= "let sucur of dataSucursal" value="{{sucur.idSucursal}}">{{sucur.nombre}}</option> 
+            </select>
+            </div>
+            <div class="col-12 espacio" >
+                <span> Nombre: </span>
+                <input type="text" [(ngModel)]="nombreBodega" class="inputBasico">
+            </div>
+        </div>
+        <div class="col-12 espacio">
+            <button mat-raised-button color="primary" (click)="crearBodega()" class="full-width">Crear Bodega</button>
+        </div>
+    </div>

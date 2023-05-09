@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2>Bienvenido</h2>
+            <h4>Seleccione unidad médica</h4>
+            <form action="" (ngSubmit)="onSubmit()">
+            <mat-form-field appeareance="outline" class="full-width">
+                <mat-label>Unidad:</mat-label>
+                <mat-select    placeholder="Unidad" (ngModel)="CentroSeleccionado"  (selectionChange)="cambioCentro($event.value)"> 
+                   
+                    <mat-option *ngFor="let centro of Centros"  [value] = "centro.codCentro">
+                        {{centro.nombreCentro}}
+                    </mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="warn" style="margin-right: 5px;" [mat-dialog-close]="0" >
+                Cancelar
+            </button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="selecion">
+                Seleccionar
+            </button>
+        </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,155 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Crear paciente">
+       <div class="container-fluid">
+            <div class="row">
+                <h1>Creacion de paciente</h1>
+                <div class="col-md-2">
+                    <span>Nombres: </span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text"  [(ngModel)]="nombresPaciente" class="inputBasico espacio" maxlength="100" placeholder="--">
+                </div>
+                <div class="col-md-2">
+                    <span>Apellidos: </span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" [(ngModel)]="apellidosPaciente" class="inputBasico espacio" maxlength="100" placeholder="--">
+                </div>
+                <div class="col-md-2">
+                    <span>Dpi: </span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" [(ngModel)]="dpi" class="inputBasico espacio" maxlength="100" placeholder="--">
+                </div>
+                <div class="col-md-2">
+                    <span>Fecha Nacimiento: </span>
+                </div>
+                <div class="col-md-10">
+                    <input type="date" [(ngModel)]="fechaNacimiento" class="inputBasico espacio" maxlength="100" placeholder="--">
+                </div>
+                <div class="col-md-2">
+                    <span>Direccion: </span>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" [(ngModel)]="direccion" class="inputBasico espacio" maxlength="100" placeholder="--">
+                </div>
+                <div class="col-md-2">
+                    <span>Departamento: </span>
+                </div>
+                <div class="col-md-10">
+                    <select name="departamento" class="inputBasico espacio" [(ngModel)]="departamento" (ngModelChange)="cambioDepartamento()" id="departamento">
+                        <option value="-">Seleccione</option>
+                        <option *ngFor="let dep of dataDepartamentos" value="{{dep.idDepartamento}}">{{dep.nombre}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <span>Municipio: </span>
+                </div>
+                <div class="col-md-10">
+                    <select name="municipio" class="inputBasico espacio"  [(ngModel)]="municipio" id="municipio">
+                <option value="-">Seleccione</option>
+                <option *ngFor="let mun of dataMunicipios" value="{{mun.idMunipio}}">{{mun.nombre}}</option>
+            </select>
+                </div>
+            </div>
+            <div class="col-12 espacio">
+                <button mat-raised-button color="primary" (click)="crearPaciente()" >Crear paciente</button>
+            </div>
+       </div>
+    </mat-tab>
+    <mat-tab label="Casos paciente"> 
+                <div class="container-fluid">
+                    <div class="row" *ngIf="noSeleccionado">
+                        <h2>Seleccionar paciente</h2>
+                        <div class="col-md-2 espacio">
+                            Nombre:
+                        </div>
+                        <div class="col-md-8 espacio">
+                            <input type="text" [(ngModel)]="nombreBusqueda" class="inputBasico">
+                        </div> 
+                        <div class="col-md-2 espacio">
+                            <button mat-raised-button (click)="buscarPaciente()">Buscar</button>
+                        </div> 
+                        <div class="col-12 espacio">
+                            
+                            <mat-paginator [pageSizeOptions]="[5,10]"></mat-paginator>
+                            <table mat-table [dataSource]="dataSourcePaciente" class="full-width">
+                                <ng-container matColumnDef="nombre">
+                                    <th mat-header-cell *matHeaderCellDef> Nombres </th>
+                                    <td mat-cell *matCellDef="let element">{{element.nombres}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="apellido">
+                                    <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+                                    <td mat-cell *matCellDef="let element">{{element.apellidos}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="direccion">
+                                    <th mat-header-cell *matHeaderCellDef> Dirreccion </th>
+                                    <td mat-cell *matCellDef="let element">{{element.direccion}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="accion">
+                                    <th mat-header-cell *matHeaderCellDef> accion</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <button mat-raised-button (click)="SeleccionarPacienteCrearCaso(element)" color="basic">Crear caso</button>
+                                        <button mat-raised-button (click)="CasosPaciente(element)" color="basic">Ver casos</button>
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="columnaTablaPacientes"></tr>
+                                <tr mat-row *matRowDef="let rows; columns: columnaTablaPacientes"></tr>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="row espacio" *ngIf="!noSeleccionado && !viendoHistorial">
+                        <div class="col-4">
+                            <button mat-raised-button (click)="regresar()" color="basic">Regresar</button>
+                            
+                        </div>
+                        <h2>Paciente: {{pacienteSeleccionado.nombres}}</h2>
+
+                        <div class="col-md-2">
+                            <span>Fecha inicio Caso: </span>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="date" [(ngModel)]="fechaCasoNuevo" class="inputBasico espacio" >
+                        </div>
+                        <div class="col-12">
+                            <button mat-raised-button color="primary" (click)="crarCaso()" >Crear caso</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!noSeleccionado && viendoHistorial" >
+                        <div class="col-4">
+                            <button mat-raised-button (click)="regresar()" color="basic">Regresar</button>
+                            
+                        </div>
+                        <div class="col-12 espacio">
+                            <mat-paginator [pageSizeOptions]="[5,10]"></mat-paginator>
+                            <table mat-table [dataSource]="dataSourceCasos" class="full-width">
+                                <ng-container matColumnDef="fechaInicio">
+                                    <th mat-header-cell *matHeaderCellDef> Fecha Inicio </th>
+                                    <td mat-cell *matCellDef="let element">{{element.fechaInicio}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="fechaFin">
+                                    <th mat-header-cell *matHeaderCellDef> Fecha Finalizacion </th>
+                                    <td mat-cell *matCellDef="let element">{{element.fechaFin}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="motivo">
+                                    <th mat-header-cell *matHeaderCellDef> Motivo Finalizacion </th>
+                                    <td mat-cell *matCellDef="let element">{{element.motivoFinalizacion}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="accion">
+                                    <th mat-header-cell *matHeaderCellDef> accion</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <button mat-raised-button (click)="CerrarCaso(element)" [disabled]="element.fechaFin != null" color="basic">Cerrar caso caso</button>
+                                        <!-- <button mat-raised-button (click)="CasosPaciente(element)" color="basic">Ver casos</button> -->
+                                    </td>
+                                    
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="columnaTablaCasos"></tr>
+                                <tr mat-row *matRowDef="let rows; columns: columnaTablaCasos"></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+    </mat-tab>
+  </mat-tab-group>
+

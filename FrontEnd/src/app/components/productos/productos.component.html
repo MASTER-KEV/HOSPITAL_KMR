@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="row">
+      <h1>CREAR PRODUCTOS</h1>
+      <div class="col-md-2">
+       <span class="textoLectura">Nombre Producto:</span>
+      </div>
+      <div class="col-md-10">
+        <input type="text" class="inputBasico"
+        [(ngModel)]="nombreproducto">
+      </div>
+      <div class="col-md-2 espacio">
+        <span class="textoLectura">Imagen</span>
+      </div>
+      <div class="col-md-10 espacio">
+        <input type="file"
+        (change)="cambioarchivo($event)">
+      </div>
+      <div class="col-12">
+        <button mat-raised-button color="primary" (click)="cargarimagen()" class="full-width">Agregar Producto</button>
+      </div>
+    </div>
+</div>
